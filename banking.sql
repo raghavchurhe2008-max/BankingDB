@@ -45,3 +45,53 @@ InterestRate decimal(5,2),
 StartDate date,
 EndDate date
 );
+desc Loans;
+
+alter table Customers
+add DateOfBirth date;
+desc Customers;
+
+alter table Customers
+modify Phone varchar(20);
+desc Customers;
+alter table Accounts
+add constraint chk_MinBalance
+check (Balance >= 1000);
+
+drop table accountbranches;
+
+alter table Accounts
+add CustomerID int;
+
+alter table Accounts
+add constraint FK_Accounts_Customers
+foreign key (customerID)
+references Customers(CustomerID);
+desc Accounts;
+
+alter table Accounts
+add constraint 
+primary key (AccountID);
+
+alter table Customers
+modify FirstName varchar(50) not null;
+desc customers;
+
+alter table Customers
+add constraint uq_Email unique (Email);
+desc customers;
+
+alter table branches
+add constraint
+primary key (BranchID);
+
+desc branches;
+
+alter table Accounts
+add BranchID int;
+
+alter table Accounts
+add constraint 
+foreign key (BranchID)
+references Branches(BranchID);
+desc Accounts;
