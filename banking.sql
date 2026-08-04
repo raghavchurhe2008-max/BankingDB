@@ -130,5 +130,29 @@ from INFORMATION_SCHEMA.TABLE_CONSTRAINTS
 WHERE TABLE_SCHEMA = 'bankingDB'
   And TABLE_NAME = 'Acconts';
   
-  
-  
+  insert into Customers
+   (CustomerID, FirstName, LastName, Email, Phone, DateOfBirth)
+   values
+   (101,'Raghav','Churhe','raghavchurhe2008@gmail.com','7264832310','2008-05-18');
+   select * from customers;
+   
+   insert into accounts
+   (AccountID, CustomerID, AccountType, Balance)
+   Values
+   (201,101,'Savings',25000);
+    select * from accounts;
+    
+    insert into Customers
+   values
+   (102,'Rehan','Churhe','rehanchurhe2008@gmail.com','7498107136','2026-08-04','2008-05-18');
+   
+    insert into Customers
+   (CustomerID, FirstName, LastName, Email, Phone, AccountCreationDate, DateOfBirth)
+   values
+   (103,'Aditya','Gaidhane','adityagaidhane@gmail.com','9876512345','2026-01-07','2004-07-18'),
+   (104,'Shri','Jha','shrijha@gmail.com','7689745678','2025-11-23','2005-07-11');
+   
+   update customers
+   set AccountCreationDate = '2025-06-29'
+   where CustomerID = 101;
+      select * from customers;
