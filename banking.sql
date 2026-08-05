@@ -156,3 +156,105 @@ WHERE TABLE_SCHEMA = 'bankingDB'
    set AccountCreationDate = '2025-06-29'
    where CustomerID = 101;
       select * from customers;
+
+
+insert into branches
+values
+(901,"Dharampeth","Ramdaspeth,Nagpur","9865235894"),
+(902,"Laxminagar","Ajni,Nagpur","8765298631"),
+(903,"Ganeshpeth","GAneshpeth,Nagpur","909697382");
+
+update accounts set branchID = 901
+where AccountID= 201;
+
+insert into accounts
+(AccountID,AccountType,Balance,CustomerID,BranchID)
+values(202,"current",15700,102,902),
+(203,"saving",12300,103,903);
+
+select * from accounts;
+
+insert into transactions
+values
+(501,"2026-07-22","5000","UPI",201),
+(502,"2026-07-18","10000","RTGS",202),
+(503,"2026-07-09","12000","CASH",203);
+
+select * from transactions;
+
+insert into loans
+values
+(701,"2000","5","2022-05-22","2022-08-03",101),
+(702,"5000","10","2025-05-13","2025-09-23",102),
+(703,"6000","7","2026-03-15","2026-07-03",103);
+select * from loans;
+
+insert into customers
+values 
+(105,'Karishma','Patode','karishmapatode@gmail.com','7507884705','2024-06-22','2008-11-15'),
+(106,'Vidhi','Churhe','vidhichurhe2005@gmail.com','7410735042','2024-09-12','2005-08-27');
+select * from accounts;
+
+insert into branches
+values
+(904,'CO.OP.Soundad','Soundad,Gondia','6548698654'),
+(905,'Bank of Maharashtra Soundad','Soundad,Gondia','4569778564'),
+(906,'SBI Soundad','Soundad,Gondia','4569778664');
+
+insert into accounts
+values
+(204,'saving','17000','104','904'),
+(205,'current','21000','105','905'),
+(206,'current','8500','106','906');
+
+insert into transactions
+values
+(504,"2025-12-27","11500","UPI",204),
+(505,"2026-05-18","7000","UPI",205),
+(506,"2025-12-14","1500","CASH",206);
+select * from transactions;
+
+insert into loans
+values
+(704,"15000","6","2023-06-12","2024-02-09",104),
+(705,"23000","114","2025-04-16","2025-11-13",105),
+(706,"8000","9","2026-01-09","2026-09-14",106);
+select * from loans;
+
+update accounts set balance = 60000
+where accountid = 201;
+
+update accounts set balance = balance + 5000
+where accountid = 202;
+
+select * from accounts;
+
+update customers set Email = "Raghavchurhe2008@gmail.com", phone = "7893549665"
+where CustomerID = 101;
+
+select customerid, firstname, lastname, phone
+from customers;
+
+select * from accounts
+where AccountType = 'Savings';
+
+update accounts set accounttype = 'Savings' 
+where accountid = 203;
+
+update accounts set accounttype = 'Savings' 
+where accountid = 204;
+
+update accounts set accounttype = 'Current' 
+where accountid = 202;
+
+update accounts set accounttype = 'Current' 
+where accountid = 205;
+
+update accounts set accounttype = 'Current' 
+where accountid = 206;
+
+select * from accounts 
+where Balance > 2000;
+select * from accounts
+where AccountType != 'Savings' and Balance > 2000;
+
