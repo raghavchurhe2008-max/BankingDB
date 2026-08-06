@@ -227,7 +227,7 @@ where accountid = 201;
 update accounts set balance = balance + 5000
 where accountid = 202;
 
-select * from accounts;
+select * from customers;
 
 update customers set Email = "Raghavchurhe2008@gmail.com", phone = "7893549665"
 where CustomerID = 101;
@@ -258,3 +258,61 @@ where Balance > 2000;
 select * from accounts
 where AccountType != 'Savings' and Balance > 2000;
 
+select * From customers
+where AccountCreationDate > "2026-07-01";
+
+select * from customers
+where Phone in ('7893549665','7507884705','9876512345');
+
+select * from customers
+where Phone='7893549665' or Phone='7507884705' or Phone='9876512345';
+
+select * from accounts
+where Balance between 10000 and 30000;
+
+select * from accounts
+where Balance >= 10000 and Balance <= 30000;
+
+-- Like Operator
+-- Find all customers whose first name start with letter "K"
+select * from customers
+where FirstName like 'K%';
+
+-- Find all customers whose last name ends with letter "K"
+select * from customers
+where LastName like '%e';
+
+-- "%" matcher any number of char and even 0 characters and "_" matches exactly one charachers
+-- Find all customers whose last name has exactly 3 characters;
+select * from customers
+where LastName like "______";
+
+-- Order by clause
+-- Sort the accounts table according to customers balance.
+select CustomerID,balance
+from accounts
+order by balance;
+
+-- Sort the branches table according to branch name.
+select BranchID,BranchName
+from branches
+order by BranchName;
+
+-- Sort the accounts table according to customers balance.
+-- from highest to lowest balance amount.
+select CustomerID,Balance
+from accounts
+order by balance desc;
+
+-- Sort according to multiple columns.
+-- Sort accounts table according to the accounttype and balance. 
+select AccountID,AccountType,Balance,CustomerID
+from Accounts
+Order by AccountType DESC, Balance DESC;
+
+-- distinct clause
+-- Find distinct (unique) account type from accounts table
+select distinct AccountType from Accounts;
+
+-- Find distinct (unique) transaction type and accountID from transactions table
+select distinct transactiontype,accountid from transactions;
