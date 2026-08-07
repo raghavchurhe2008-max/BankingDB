@@ -316,3 +316,79 @@ select distinct AccountType from Accounts;
 
 -- Find distinct (unique) transaction type and accountID from transactions table
 select distinct transactiontype,accountid from transactions;
+
+select * from customers
+limit 2 offset 2;
+
+select * from transactions
+limit 3 offset 1;
+
+select * from loans
+limit 4 offset 1;
+
+select * from accounts
+order by Balance desc limit 2;
+
+select * from accounts
+order by balance DESC
+limit 1 offset 2;
+
+select * from accounts
+order by balance DESC
+limit 2,1;  -- Here 2 specifies the rows to skip and 1 specifies the number
+
+insert into customers
+(CustomerID, FirstName, LastName, Email, AccountCreationDate, DateOfBirth)
+values
+(107, 'Awni', 'Raksiya', 'awniraksiya@gmail.com', '2025-11-24', '2009-01-20'),
+(108, 'Chaitanya', 'Neware', 'chaitanyaneware@gmail.com', '2024-07-12', '2007-10-26'),
+(109, 'Shrishant', 'Khobragade', 'shrishantkhobragade@gmail.com', '2024-07-12', '2008-10-14'),
+(110, 'Jatin', 'Nimbekar', 'jatinnimbekar28@gmail.com', '2024-07-13', '2008-04-28');
+
+select * from customers;
+
+delete from customers where CustomerID = 107;
+delete from customers where CustomerID = 108;
+delete from customers where CustomerID = 109;
+delete from customers where CustomerID = 110;
+
+select * from customers
+where Phone IS NULL;
+select * from accounts;
+
+insert into accounts
+(AccountID, AccountType, Balance, CustomerID, BranchID)
+values
+(207, 'Current', '14000', '107', '902'),
+(208, 'Current', '18700', '108', '904'),
+(209, 'Savings', '35000', '109', '906'),
+(210, 'Savings', '43000', '110', '901');
+
+select * from transactions;
+select * from loans;
+select * from branches;
+
+insert into transactions
+(TransactionID, TransactionDate, Amount, TransactionType, AccountID)
+values
+(507, '2026-02-22', '50000', 'RTGS', '207'),
+(508, '2026-05-07', '14000', 'UPI', '208'),
+(509, '2026-06-27', '5000', 'CASH', '209'),
+(510, '2026-04-29', '23000', 'RTGS', '210');
+
+insert into loans
+(LoanID, LoanAmount, InterestRate, StartDate, EndDate, CustomerID)
+values
+(707, '25000', '13', '2025-12-30', '2026-05-18', '108'),
+(708, '20000', '9', '2026-01-25', '2026-06-09', '110');
+
+-- If my balance value is <50000 else low value customers
+ 
+ select AccountID, AccountType, Balance,
+ case 
+	when Balance>= 20000 then " High Value Customers"
+    else "Low Value Customers"
+ end as CustomerCategory
+ from accounts;
+ 
+ 
