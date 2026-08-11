@@ -392,3 +392,228 @@ values
  from accounts;
  
  
+SELECT CustomerID, FirstName, Email
+FROM Customers
+WHERE AccountCreationDate > '2025-01-01';
+
+select * from accounts
+where AccountType = 'Savings' and Balance > '20000';
+
+select * from customers
+where Phone IS NOT NULL;
+
+SELECT DISTINCT AccountType
+FROM Accounts;
+
+SELECT * FROM Customers
+WHERE FirstName LIKE 'R%';
+
+select * from accounts
+where Balance >= 20000 AND Balance <= 60000;
+
+SELECT * FROM Transactions
+WHERE TransactionType = 'Deposit' AND Amount > 3000;
+
+SELECT * FROM Customers
+WHERE CustomerID IN (101, 103, 106, 109);
+
+SELECT * FROM Customers
+ORDER BY CustomerID LIMIT 5; 
+
+SELECT * FROM Customers
+LIMIT 10 OFFSET 3;
+
+SELECT * FROM Accounts
+WHERE AccountType = 'Savings' AND Balance BETWEEN 20000 AND 80000;
+
+SELECT FirstName, LastName
+FROM Customers
+WHERE Phone IS NULL 
+AND AccountCreationDate > '2025-01-01';
+
+SELECT * FROM Customers
+WHERE FirstName LIKE 'A%'
+OR LastName LIKE 'S%';
+
+SELECT *
+FROM Accounts
+WHERE AccountType = 'Savings' OR AccountType = 'Salary'
+AND Balance > 10000;
+
+SELECT * FROM Customers
+WHERE CustomerID IN (101, 102, 105, 109)
+AND Phone IS NOT NULL;
+
+SELECT * FROM Transactions
+WHERE Amount BETWEEN 2000 AND 8000
+AND TransactionType = 'Deposit';
+
+SELECT DISTINCT BranchID
+FROM Accounts
+WHERE Balance > 30000;
+
+SELECT * FROM Customers
+WHERE Email LIKE '%gmail%' AND FirstName LIKE '%a';
+
+SELECT * FROM Customers
+WHERE DateOfBirth BETWEEN '1995-01-01' AND '2000-12-31';
+
+SELECT * FROM Accounts
+WHERE AccountType = 'Savings'
+AND Balance > 25000 ORDER BY AccountID LIMIT 3;
+
+SELECT * FROM Customers
+WHERE FirstName LIKE 'P%'
+AND Phone IS NULL;
+
+SELECT * FROM Accounts
+WHERE Balance NOT BETWEEN 20000 AND 50000;
+
+SELECT * FROM Customers
+WHERE CustomerID NOT IN (101, 102, 103);
+
+SELECT * FROM Transactions
+WHERE TransactionType = 'Withdrawal'
+AND Amount < 5000;
+
+SELECT * FROM Customers
+WHERE Email LIKE '%gmail.com'
+AND Phone IS NOT NULL;
+
+SELECT DISTINCT TransactionType FROM Transactions
+WHERE Amount > 5000;
+
+SELECT * FROM Accounts
+WHERE AccountType = 'Savings'
+AND (BranchID = 1 OR BranchID = 3);
+
+SELECT * FROM Customers
+WHERE FirstName LIKE '%ha%'
+AND DateOfBirth > '1997-12-31';
+
+SELECT * FROM Accounts
+WHERE Balance > 30000 AND Balance < 80000;
+
+SELECT * FROM Transactions
+WHERE TransactionType = 'Deposit'
+ORDER BY TransactionID LIMIT 4 OFFSET 2;
+
+SELECT FirstName, LastName FROM Customers
+WHERE Phone IS NULL
+OR Email LIKE 's%';
+
+SELECT * FROM Accounts
+WHERE AccountType = 'Savings'
+AND Balance > 10000 AND BranchID = 1;
+
+SELECT * FROM Accounts
+WHERE AccountType = 'Current'
+AND Balance BETWEEN 40000 AND 100000;
+
+SELECT * FROM Customers
+WHERE LastName LIKE 'S%'
+AND AccountCreationDate > '2024-12-31';
+
+SELECT * FROM Transactions
+WHERE Amount IN (2000, 3000, 5000, 7000);
+
+SELECT * FROM Customers
+WHERE (FirstName LIKE 'R%' OR FirstName LIKE 'P%')
+AND Phone IS NOT NULL
+AND CustomerID > 103;
+
+SELECT DISTINCT Balance
+FROM Accounts
+WHERE Balance > 15000;
+
+SELECT * FROM Accounts
+WHERE AccountType <> 'Savings'
+AND Balance > 25000;
+
+SELECT * FROM Customers
+WHERE Email LIKE '%gmail%' 
+AND Phone IS NULL;
+
+SELECT * FROM Accounts
+WHERE Balance BETWEEN 15000 AND 90000
+AND AccountType <> 'Salary';
+
+SELECT * FROM Customers
+WHERE (FirstName LIKE 'A%' OR FirstName LIKE 'R%')
+ORDER BY CustomerID LIMIT 5;
+
+SELECT * FROM Accounts
+WHERE AccountType IN ('Savings', 'Salary')
+AND Balance > 15000
+AND Balance < 60000;
+
+SELECT * FROM Customers
+WHERE CustomerID IN (101, 103, 105, 107, 109)
+AND DateOfBirth BETWEEN '1994-01-01' AND '2000-12-31';
+
+SELECT * FROM Transactions
+WHERE Amount > 2000
+AND Amount < 8000
+AND TransactionType <> 'Withdrawal';
+
+SELECT * FROM Customers
+WHERE Phone IS NULL
+OR FirstName LIKE '%an%';
+
+SELECT DISTINCT AccountType FROM Accounts
+WHERE Balance > 20000;
+
+SELECT * FROM Customers
+LIMIT 4 OFFSET 2;
+
+SELECT * FROM Customers
+WHERE LastName LIKE '%kar'
+AND Email LIKE '%gmail%';
+
+SELECT * FROM Accounts
+WHERE BranchID IN (1, 2)
+AND Balance BETWEEN 20000 AND 70000;
+
+SELECT * FROM Customers
+WHERE FirstName LIKE 'S%'
+AND Phone IS NOT NULL
+AND AccountCreationDate BETWEEN '2025-01-01' AND '2025-12-31';
+
+-- Categorize the RTGS in the transactions table as per conditions given
+-- If above 10000(included) high amount
+-- If 5000(included) to 10000 medium amount
+-- If upto 5000 low amount
+-- For other transactions type "Not applicable"
+
+select * ,
+ case 
+	when TransactionType = "RTGS" and Amount >= 10000 then "High amount"
+    when TransactionType = "RTGS" and Amount >=5000 then "Medium amount"
+    when TransactionType = "RTGS" and Amount <5000 then "Low amount"
+    else "Not appicable" 
+ end as Transaction_Category
+ from transactions;
+ 
+ 
+ select * from transactions;
+ select * from customers;
+
+select CustomerID, upper(FirstName), upper(LastName) from customers;
+select CustomerID, lower(FirstName), lower(LastName) from customers;
+
+select LastName, length(lastname) from customers;
+
+select length("NAGPUR") AS Characters; -- Gives output in number of bytes 
+select length("नागपुर"); -- Gives output in number of bytes
+select char_length("NAGPUR"); -- Gives output in number of Characters
+select char_length("नागपुर"); -- Gives output in number of Characters
+
+select concat("Hero"," ","Honda") as VehicleName;
+
+select CustomerID,concat(FirstName," ",LastName) as FullName, Phone
+from customers;
+
+select substring("Hello World",1,5);
+
+select CustomerID, concat(Substring(FirstName,1,1),".",LastName) as FullName from customers;
+
