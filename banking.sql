@@ -617,3 +617,59 @@ select substring("Hello World",1,5);
 
 select CustomerID, concat(Substring(FirstName,1,1),".",LastName) as FullName from customers;
 
+-- Trim() function
+select length("  Hello World  ");
+select length(trim("  Hello World  "));
+select length(trim(substring("Hello World",6)));
+
+-- Replace function (str,from_str,to_str)
+select replace("Mat","M","C"); -- Returns the string str with all occurrences of the string from_str replaced by the string to_str. REPLACE() performs a case-sensitive match when searching for from_str.
+select replace("Mat mat Mat","M","C");
+
+-- Avg function
+select avg(Balance) from accounts
+where AccountType = "Savings";
+-- Round function
+select round(avg(Balance),2) from accounts
+where AccountType = "Savings";
+
+-- Ceil function
+select ceil(avg(Balance)) from accounts
+where AccountType = "Savings";
+
+-- Floor function
+select floor(avg(Amount)) from transactions;
+
+-- Absolute function.... (It removes the sign)
+select abs(-3656);
+select abs(-1.34);
+select abs(6.646);
+
+-- MOD value
+select mod(7,3);
+select mod(3,7);
+
+-- Power()
+SELECT POW(2,3);
+SELECT POW(1.5,3);
+
+-- SQRT()
+SELECT SQRT(16);
+
+-- Date function 
+-- Now Function -- return the current date and time
+select now();    -- return date and time
+select curdate();   -- return current date
+select curtime();	-- return cur time
+
+-- YEAR() MONTH() DAY()
+select year(dateofbirth),month(dateofbirth),day(dateofbirth) from customers;
+
+-- Datediff () function  -- it return thee number dayss between two dates
+select concat(FirstName," ",LastName) as Fullname, DateOfBirth,
+floor(datediff(curdate(),DateOfBirth)/365) as Current_Age from customers;
+
+-- Date_add function
+select concat(Firstname," ",Lastname) as Fullname,
+AccountCreationDate,
+DATE_ADD(AccountCreationDate,INTERVAL 1 YEAR) as KYC_Update from customers;
