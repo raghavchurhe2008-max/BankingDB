@@ -673,3 +673,53 @@ floor(datediff(curdate(),DateOfBirth)/365) as Current_Age from customers;
 select concat(Firstname," ",Lastname) as Fullname,
 AccountCreationDate,
 DATE_ADD(AccountCreationDate,INTERVAL 1 YEAR) as KYC_Update from customers;
+
+
+-- Aggregates
+-- Count function
+select * from customers;
+select count(*) as TotalCustomers from customers;
+select count(Phone) as TotalCustomers from customers;
+
+-- Sum function
+select * from accounts;
+select sum(Balance) as TotalBalance from accounts;
+select sum(Balance) as SavingsBalance from accounts where AccountType = 'Savings';
+select sum(Balance) as CurrentBalance from accounts where AccountType = 'Current';
+
+-- AVG function
+select * from transactions;
+select avg(Amount) as AverageTransactionAmount from transactions;
+select avg(Amount) as Average_UPI_Transaction_Amount from transactions where TransactionType = 'UPI';
+select avg(Amount) as Average_RTGS_Transaction_Amount from transactions where TransactionType = 'RTGS';
+select avg(Amount) as Average_CASH_Transaction_Amount from transactions where TransactionType = 'CASH';
+
+-- MAX() and MIN() function
+-- Find maximum and minimum balance available in savings account
+select * from accounts;
+select max(Balance) as Maximum_Balance from accounts where AccountType = 'savings';
+select min(Balance) as Minimum_Balance from accounts where AccountType = 'savings';
+
+
+-- Group by
+select * from transactions;
+select transactionType, sum(amount) from transactions
+group by (TransactionType);
+
+select * from accounts;
+SELECT  AccountType,
+    COUNT(*) AS TotalAccounts,
+    SUM(Balance) AS TotalBalance,
+    AVG(Balance) AS AvgBalance
+FROM accounts
+GROUP BY AccountType;
+
+
+-- find total accounts for branch and account type.
+
+select * from accounts;
+select BranchID, AccountType, count(*)
+from accounts
+group by BranchID, AccountType
+order by BranchID;
+
