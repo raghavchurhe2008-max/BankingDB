@@ -723,3 +723,42 @@ from accounts
 group by BranchID, AccountType
 order by BranchID;
 
+
+-- Having clause
+select BranchID, AccountType, count(*) as NoOfAccounts
+from accounts
+group by BranchID, AccountType
+having NoOfAccounts >=2 and AccountType = "Savings";
+
+
+-- Find number of customers accunt create according to year
+SELECT YEAR(AccountCreationDate) AS Years, COUNT(*) AS AccountsOpened
+FROM Customers
+GROUP BY YEAR(AccountCreationDate);
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+select * from customers;
+
+-- Inner Join
+-- Find all customers having loans with their Names, InterestRate and loan amount.
+SELECT c.CustomerID ,c.FirstName, c.LastName, l.InterestRate, l.LoanAmount
+FROM customers c
+INNER JOIN loans l
+ON c.CustomerID = l.CustomerID;
+
+-- Find the branch names for all the accountid'savepoint
+-- Include accountID, accounttype and branchname, branchaddress
+select a.AccountID, a.AccountType, b.BranchName, b.BranchAddress
+from accounts a
+inner join Branches b
+on a.BranchID = b.branchid
+where AccountType = "Savings";
+
+-- Find all the customers (name, phone, transactiontype, balance) where accounttype is deposit.
+select c.FirstName, c.LastName, c.Phone, a.Accounttype, a.Balance
+from customers c
+inner join accounts a
+on c.CustomerID = a.CustomerID
+where accounttype = "Savings";
+
