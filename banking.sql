@@ -762,3 +762,63 @@ inner join accounts a
 on c.CustomerID = a.CustomerID
 where accounttype = "Savings";
 
+--
+select * from customers;
+
+insert into customers
+(CustomerID, FirstName, Lastname, Email, Phone, AccountCreationDate, DateOfBirth)
+values
+(111, 'Vikram', 'Joshi', 'vikram@gmail.com', '9876540123', '2023-09-10', '2004-08-01'),
+(112, 'Kabir', 'Singh', 'kabirsingh@gmail.com', '8945632102', '2024-03-05', '2002-01-11'),
+(113, 'Arjun', 'Reddy', 'arjunreddy@gmail.com', '7964582310', '2025-06-17', '2003-05-27');
+
+select c.FirstName,c.LastName,c.Phone,a.AccountType,a.Balance
+from customers c
+left join accounts a
+on c.CustomerID = a.CustomerID;
+
+--
+select * from branches;
+
+insert into branches
+values
+(907, 'Nashik Branch', 'College Road Nashik', '0523-458967');
+
+select * from accounts;
+
+insert into accounts
+(AccountID, AccountType, Balance, CustomerID, BranchID)
+values
+(211, 'Current', '35000', '111', '907'),
+(212, 'Savings', '22000', '112', '903');
+
+
+select * from transactions;
+
+insert into transactions
+values
+(511, '2025-11-19', '9000', 'UPI', '203'),
+(512, '2025-05-14', '11000', 'CASH', '206'),
+(513, '2025-02-09', '5050', 'UPI', '205'),
+(514, '2026-09-29', '17500', 'RTGS', '202'),
+(515, '2026-08-15', '85000', 'RTGS', '209'),
+(516, '2026-03-19', '21400', 'RTGS', '207'),
+(517, '2025-12-29', '13000', 'CASH', '210');
+
+
+select * from accounts;
+
+insert into accounts
+values
+(213, 'Savings', '32000', '102', '902'),
+(214, 'Current', '15600', '105', '905');
+
+
+-- Display the customer's 
+
+select a.accountid, concat_ws(" ",c.firstname,c.lastname) as Fullname, a.accounttype, a.balance
+from customers c
+inner join accounts a
+on c.customerid = a.customerid
+order by c.CustomerID;
+
