@@ -822,3 +822,64 @@ inner join accounts a
 on c.customerid = a.customerid
 order by c.CustomerID;
 
+-- Find the number of accounts held by each customer.
+
+select c.FirstName,c.LastName,count(a.accountid)
+from customers c
+left join accounts a
+on c.CustomerID = a.CustomerID
+group by c.CustomerID;
+
+-- Find the number of customers for each account type.
+
+SELECT a.AccountType, COUNT(c.CustomerID) AS TotalCustomers
+FROM Customers c
+left JOIN Accounts a
+ON c.CustomerID = a.CustomerID
+GROUP BY a.AccountType;
+
+-- Find the total balance for each account type.
+
+SELECT a.AccountType, SUM(a.Balance) AS TotalBalance
+FROM accounts a
+JOIN customers c
+ON a.CustomerID = c.CustomerID
+GROUP BY a.AccountType;
+
+-- Find customers who have more than one account.
+
+select c.customerid, concat(c.firstname," ",c.lastname) as FUllname, count(a.accountid) as TotalAccounts
+from customers c
+join accounts a
+on a.CustomerID = c.CustomerID
+group by c.CustomerID
+HAVING TotalAccounts > 1;
+
+-- Find customers who have never performed a transaction.
+select c.customerid, concat(c.firstname," ",c.lastname) as Fullname, count(t.accountid) as NoOfTransactions
+from customers c
+join accounts a
+on c.CustomerID = a.CustomerID
+left join transactions t
+on t.AccountID = a.AccountID
+group by c.CustomerID
+having NoOfTransactions = 0;
+
+-- Display all branches and their account count, including branches that have zero accounts.
+
+select b.BranchID, b.BranchName, count(a.accountid) TotalAccount
+from branches b
+left join accounts a
+on b.BranchID = a.BranchID
+group by b.BranchID
+having TotalAccount > 2;
+
+-- FULL OUTER JOIN
+select * from customers c
+left join accounts a
+on c.CustomerID = a.CustomerID;
+
+select * from customers c
+right join accounts a
+on c.CustomerID = a.CustomerID;
+
