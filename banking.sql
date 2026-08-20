@@ -883,3 +883,142 @@ select * from customers c
 right join accounts a
 on c.CustomerID = a.CustomerID;
 
+
+-- Display customers who do not have a Current account.
+select c.CustomerID,concat(c.firstname," ",c.lastname) as Fullname, a.AccountType
+from customers c
+left join accounts a
+on c.CustomerID = a.CustomerID
+and a.AccountType = 'Current'
+WHERE a.AccountID IS NULL;
+
+--  Display Customername,Accountcreation date,Accounttype,Balancefor customers whose account was created in 2025.
+
+select concat(c.FirstName," ",c.LastName) as Customername, c.AccountCreationDate, a.Accounttype,a.Balance
+from customers c
+join accounts a
+on c.CustomerID = a.CustomerID
+WHERE c.AccountCreationDate BETWEEN '2025-01-01' AND '2025-12-31';
+
+-- Display:Customername,Accountcreation date,Accounttype and calculate the number of days since account creation.
+
+SELECT CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName, c.AccountCreationDate, a.AccountType,
+DATEDIFF(CURDATE(), c.AccountCreationDate) AS DaysSinceCreation
+FROM Customers c
+JOIN Accounts a
+ON c.CustomerID = a.CustomerID;
+
+-- Find the highest balance held by each account type.
+
+SELECT a.AccountType, MAX(a.Balance) AS HighestBalance
+FROM Accounts a
+JOIN Customers c
+ON a.CustomerID = c.CustomerID
+GROUP BY a.AccountType;
+
+-- Find the number of customers for each branch.
+
+select b.branchid, b.branchname, COUNT(DISTINCT c.CustomerID) AS NumberOfCustomers
+FROM Branches b
+JOIN Accounts a
+ON b.BranchID = a.BranchID
+JOIN Customers c
+ON a.CustomerID = c.CustomerID
+GROUP BY b.BranchID, b.BranchName;
+
+-- Find customers whose total account balance is greater than ₹40,000.
+
+select c.CustomerID,concat(c.firstname," ",c.lastname) as Fullname, SUM(a.Balance) AS TotalBalance
+FROM Customers c
+JOIN Accounts a
+ON c.CustomerID = a.CustomerID
+GROUP BY c.CustomerID, c.FirstName, c.LastName
+HAVING SUM(a.Balance) > 40000;
+
+
+-- Find customers who do not have an account.
+
+SELECT c.CustomerID, c.FirstName, c.LastName
+FROM Customers c
+LEFT JOIN Accounts a
+ON c.CustomerID = a.CustomerID
+WHERE a.AccountID IS NULL;
+
+
+-- Find customers who do not have any loan.
+
+SELECT c.CustomerID, c.FirstName, c.LastName
+FROM Customers c
+LEFT JOIN Loans l
+ON c.CustomerID = l.CustomerID
+WHERE l.LoanID IS NULL;
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(50) NOT NULL,
+    ManagerID INT,
+    Department VARCHAR(50),
+    Salary DECIMAL(10 , 2 ),
+    JoiningDate DATE,
+    BranchID INT,
+    FOREIGN KEY (ManagerID)
+        REFERENCES Employees (EmployeeID),
+    FOREIGN KEY (BranchID)
+        REFERENCES branches (BranchID)
+);
+
+
+INSERT INTO Employees
+    (EmployeeID, EmployeeName, ManagerID, Department, Salary, JoiningDate, BranchID)
+VALUES
+    (1, 'Rajesh Sharma', NULL, 'Management', 120000.00, '2018-04-15', 901),
+    (2, 'Priya Patel', 1, 'Human Resources', 75000.00, '2019-06-10', 902),
+    (3, 'Amit Kumar', 1, 'Finance', 82000.00, '2020-01-20', 903),
+    (4, 'Sneha Verma', 1, 'IT', 95000.00, '2019-09-05', 904),
+    (5, 'Rahul Singh', 1, 'Sales', 78000.00, '2021-03-12', 905),
+    (6, 'Neha Joshi', 2, 'Human Resources', 55000.00, '2021-07-19', 906),
+    (7, 'Vikas Gupta', 2, 'Human Resources', 52000.00, '2022-02-14', 902),
+    (8, 'Pooja Mehta', 3, 'Finance', 60000.00, '2021-11-08', 907),
+    (9, 'Suresh Yadav', 3, 'Finance', 58000.00, '2022-05-16', 904),
+    (10, 'Anjali Deshmukh', 4, 'IT', 72000.00, '2020-08-24', 905),
+    (11, 'Rohan Kulkarni', 4, 'IT', 68000.00, '2021-10-11', 901),
+    (12, 'Kavita Rao', 4, 'IT', 65000.00, '2022-01-17', 906),
+    (13, 'Arjun Malhotra', 5, 'Sales', 57000.00, '2022-06-20', 903),
+    (14, 'Meena Shah', 5, 'Sales', 59000.00, '2021-12-06', 904),
+    (15, 'Deepak Thakur', 5, 'Sales', 54000.00, '2023-01-09', 905),
+    (16, 'Nitin Pawar', 6, 'Human Resources', 42000.00, '2023-04-18', 901),
+    (17, 'Swati Mishra', 7, 'Human Resources', 40000.00, '2023-07-03', 902),
+    (18, 'Manish Jain', 8, 'Finance', 45000.00, '2023-02-27', 903),
+    (19, 'Komal Sinha', 9, 'Finance', 43000.00, '2023-08-14', 907),
+    (20, 'Akash Bansal', 10, 'IT', 50000.00, '2023-05-22', 906);
+    
+UPDATE Employees
+SET EmployeeName = 'Raghav Churhe'
+WHERE EmployeeID = 1;
+
+SELECT * FROM Employees;
+
+SELECT e.employeename AS Employee, m.employeename AS Manager
+FROM employees e
+LEFT JOIN employees m 
+ON e.ManagerID = m.EmployeeID;
+
+-- Include branch name also in above query.
+
+SELECT e.EmployeeID, e.employeename AS Employee, m.employeename AS Manager, b.branchname
+FROM employees e
+LEFT JOIN employees m 
+ON e.ManagerID = m.EmployeeID
+join branches b
+on e.BranchID = b.BranchID;
+
+-- Find all the employees who reports to Sneha Verma.
+
+SELECT e.EmployeeID, e.EmployeeName, e.department, m.EmployeeName AS ManagerName
+FROM Employees e
+JOIN Employees m 
+ON e.ManagerID = m.EmployeeID
+WHERE m.EmployeeName = 'Sneha Verma';
+
+SELECT * FROM Employees
+WHERE ManagerID = 4;
