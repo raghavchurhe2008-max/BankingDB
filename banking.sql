@@ -1022,3 +1022,43 @@ WHERE m.EmployeeName = 'Sneha Verma';
 
 SELECT * FROM Employees
 WHERE ManagerID = 4;
+
+
+-- Find all customers having balance more than the average balance in the savings account.
+select avg(Balance) from accounts
+where AccountType="Savings";
+
+
+select c.CustomerID,concat(c.FirstName," ",c.LastName) as FullName, avg(a.balance) as AVGbalance
+from customers c
+join accounts a
+on c.CustomerID = a.CustomerID
+where a.AccountType = "Savings"
+group by c.FirstName, c.CustomerID
+having AVGbalance > 31614.285714;m
+
+select * from accounts;
+
+
+-- Scalar Subquery
+SELECT a.accountid, c.customerid
+FROM accounts a 
+join customers c 
+on a.CustomerID = c.CustomerID
+WHERE a.Balance > (SELECT 
+AVG(Balance)
+FROM accounts
+WHERE AccountType = 'Savings'
+&& AccountType = "Savings");
+
+-- FInd the account(s) having highest balance.
+select accountid, balance 
+from accounts 
+where balance = (Select max(Balance) from accounts);
+
+-- Find customers whose year of birth is earlierthan the average year of birth of all customers.
+SELECT FirstName, LastName, year(DateOfBirth) as YearOfBirth 
+from Customers
+WHERE Year(DateOfBirth) < (
+SELECT AVG(YEAR(DateOfBirth))
+FROM Customers);
